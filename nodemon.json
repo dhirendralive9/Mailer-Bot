@@ -1,0 +1,4 @@
+{   
+    "ignore": ["./json/sender.json","./json/list.json","./json/status.json","./json/templates.json","./json/errors.json","./json/*","./json"] 
+}
+ 
