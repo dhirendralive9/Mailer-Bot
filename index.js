@@ -1,31 +1,40 @@
 const express = require('express')
 const app = express()
 const port = 3000;
+// all the required js files. 
 const sender = require("./routes/sender.js");
 const list = require("./routes/emaillist.js");
 const template = require("./routes/template.js");
+const install = require("./routes/install.js");
+const status = require("./routes/status.js");
+const error = require("./routes/error.js");
+const start = require("./routes/start.js");
 
 
-// respond with "hello world" when a GET request is made to the homepage
-app.get('/sender', sender.sender);  //It will store all the received sender infos.
 
-app.get('/email', list.email); //It will store all the email for list
+app.get('/install', install.installer);
+// It must be ran first, before running other commands.
 
-  app.get('/template', (req, res) => {
-    res.send('Template is sent here');
-    console.log(req.query);
-  });  
+app.get('/sender', sender.sender);  
+//It will store all the received sender infos.
 
-app.get('/status', (req, res) => {
-    res.send('Here, to check the status of all the mails ');
+app.get('/email', list.email); 
+//It will store all the email for list.
+
+app.get('/template', template.copy);  
+// IT will store all the templates received.
+
+app.get('/status',status.check);
+//It send all the email sending system.
+  
+app.get('/start', (req, res) => {
+    res.send('Here, to check the status of all the mails');
     console.log(req.query);
   });
+ //It will start the mailing process. 
 
-app.get('/errors', (req, res) => {
-    res.send('all the errors will be thrown here');
-    console.log(req.query);
-  });
-
+app.get('/errors', error.sender);
+// It will send all the errors which will be recorded
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
