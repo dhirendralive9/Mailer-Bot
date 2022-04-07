@@ -10,6 +10,9 @@ const status = require("./routes/status.js");
 const error = require("./routes/error.js");
 const start = require("./routes/start.js");
 const process = require("./routes/process.js");
+const cors = require('cors');
+
+app.use(cors());
 
 app.get('/install', install.installer);
 // It must be ran first, before running other commands.
