@@ -9,12 +9,12 @@ const install = require("./routes/install.js");
 const status = require("./routes/status.js");
 const error = require("./routes/error.js");
 const start = require("./routes/start.js");
-
+const process = require("./routes/process.js");
 
 app.get('/install', install.installer);
 // It must be ran first, before running other commands.
 
-app.get('/sender', sender.sender);  
+app.get('/sender', sender.sender);
 //It will store all the received sender infos.
 
 app.get('/email', list.email); 
@@ -31,6 +31,8 @@ app.get('/start',start.process);
 
 app.get('/errors', error.sender);
 // It will send all the errors which will be recorded
+app.get('/process', process.queueCheck);
+
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
