@@ -11,7 +11,6 @@ const error = require("./routes/error.js");
 const start = require("./routes/start.js");
 
 
-
 app.get('/install', install.installer);
 // It must be ran first, before running other commands.
 
@@ -27,10 +26,7 @@ app.get('/template', template.copy);
 app.get('/status',status.check);
 //It send all the email sending system.
   
-app.get('/start', (req, res) => {
-    res.send('Here, to check the status of all the mails');
-    console.log(req.query);
-  });
+app.get('/start',start.process);
  //It will start the mailing process. 
 
 app.get('/errors', error.sender);
