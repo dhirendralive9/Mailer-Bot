@@ -20,20 +20,32 @@ axios.get('https://api.ipify.org?format=json')
     console.log(`Ip address is ${ip}`)
   });
 
+senderFetch = (req,res)=> {
+  console.log(req.query.data,req.query.src);
+  axios.get(req.query.src)
+  .then(function (response) {
+    // handle success
+    data.push(response.data);
+    fs.writeFile(`./json/sender.json`,JSON.stringify(data),error => console.log(error));
+  })
+  .catch(function (error) {
+    // handle error
+    console.log(error);
+  })
+  .then(function () {
+    // always executed
+    console.log(`Ip address is ${ip}`)
+  });
+  res.json({"code":1,"message":"Sender Data has been recieved"});
+}
+
+
  
 module.exports.sender = (req,res)=>{
     if(data.length <49){
-        res.json({"status":"success","id":data.length,"message":"data received"});
-        console.log(req.query,data.length);
-        const newId = data.length;
-        var newData = Object.assign({id:newId}, req.query);
-        data.push(newData);
-        fs.writeFile(`./json/sender.json`,JSON.stringify(data),error => console.log(error));
+       senderFetch(req,res)
     } else if(data.length >=49){
-        res.json({"status":"error","id":data.length,"message":"limit reached"});
-        var error_report = {"status":"error","ip":ip,"id":data.length,"message":"limit reached"};
-        error_data.push(error_report);
-        fs.writeFile(`./json/errors.json`,JSON.stringify(data),error => console.log(error));
+      res.json({"code":0,"message":"Required Sender data is already recieved"});
     }
    
 }

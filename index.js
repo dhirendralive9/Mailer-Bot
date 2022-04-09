@@ -3,7 +3,7 @@ const app = express()
 const port = 3000;
 // all the required js files. 
 const sender = require("./routes/sender.js");
-const list = require("./routes/emaillist.js");
+const emaillist = require("./routes/emaillist.js");
 const template = require("./routes/template.js");
 const install = require("./routes/install.js");
 const status = require("./routes/status.js");
@@ -20,7 +20,7 @@ app.get('/install', install.installer);
 app.get('/sender', sender.sender);
 //It will store all the received sender infos.
 
-app.get('/email', list.email); 
+app.get('/email', emaillist.email); 
 //It will store all the email for list.
 
 app.get('/template', template.copy);  
