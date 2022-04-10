@@ -34,7 +34,7 @@ senderFetch = (req,res)=> {
         // handle success 
          const dataLog = response.data;
              try {
-              dataLog.forEach((x,i) =>{
+              dataLog.forEach((x) =>{
                 if(x.user && x.password){
                   if(regex.test(x.user)){
                     senderCount++
@@ -58,11 +58,7 @@ senderFetch = (req,res)=> {
           } else {
             res.json({"code":0,"message":"sender data missing"})
           } 
-
-           
-        
-
-        fs.writeFile(`./json/sender.json`,JSON.stringify(data),error => console.log(error));
+             fs.writeFile(`./json/sender.json`,JSON.stringify(data),error => console.log(error));
       })
       .catch(function (error) {
         // handle error
