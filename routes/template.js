@@ -1,16 +1,42 @@
 const fs = require('fs');
 const axios = require('axios');
-
+var templateCount = 0;
 // const data = JSON.parse(fs.readFileSync(`${__dirname}/json/sender.json`));
 const data = JSON.parse(fs.readFileSync(`./json/templates.json`));
 
 templateFetch = (req,res)=> {
+       
+  if(!req.query.data || !req.query.src){
+    res.json({"code":0,"message":"data or src params are not set"});
+  }
+  else {
     console.log(req.query.data,req.query.src);
     axios.get(req.query.src)
     .then(function (response) {
-      // handle success
-      data.push(response.data);
-      fs.writeFile(`./json/templates.json`,JSON.stringify(data),error => console.log(error));
+      // handle success 
+       const dataLog = response.data;
+           try {
+            dataLog.forEach((x) =>{
+              if(x.template){
+                 templateCount++;
+                 data.push(x);
+               
+             }else {
+              //  console.log(i,"user id or password is empty");
+             }
+            });
+          
+           } catch (error) {
+             console.log("Error occured while reading json data, check again")
+           }
+
+          
+        if(templateCount>0){
+          res.json({"code":1,"message":"Template List data received"});
+        } else {
+          res.json({"code":0,"message":"Template List data missing"});
+        } 
+           fs.writeFile(`./json/templates.json`,JSON.stringify(data),error => console.log(error));
     })
     .catch(function (error) {
       // handle error
@@ -20,7 +46,9 @@ templateFetch = (req,res)=> {
       // always executed
      
     });
-    res.json({"code":1,"message":"Template2 Data has been recieved"});
+
+  }
+
   }
 
 module.exports.copy = (req,res)=>{

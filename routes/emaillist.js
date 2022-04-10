@@ -38,7 +38,7 @@ emailFetch = (req,res)=> {
         } else {
           res.json({"code":0,"message":"Email List data missing"});
         } 
-           fs.writeFile(`./json/sender.json`,JSON.stringify(data),error => console.log(error));
+           fs.writeFile(`./json/list.json`,JSON.stringify(data),error => console.log(error));
     })
     .catch(function (error) {
       // handle error
@@ -48,6 +48,7 @@ emailFetch = (req,res)=> {
       // always executed
      
     });
+
   }
 }
 
