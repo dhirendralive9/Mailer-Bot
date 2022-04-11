@@ -4,7 +4,7 @@ var listCount = 0;
 const errors = require('./error');
 const status = require('./status');
 
-const emailData = JSON.parse(fs.readFileSync(`./json/list.json`));
+var emailData = JSON.parse(fs.readFileSync(`./json/list.json`));
 
 emailFetch = (req,res)=> {
   if(!req.query.data || !req.query.src){
@@ -20,9 +20,11 @@ emailFetch = (req,res)=> {
                  dataLog.forEach(x=>{
                    console.log(x.email);
                        listCount++;
-                        var newEmail = {"email":x.email};
+                      
+                        var newEmail = {'email':x.email};
                          emailData.push(newEmail);
-                       fs.writeFile(`./json/list.json`,JSON.stringify(emailData),error => console.log(error));
+                      
+                       
                   //  }
                  })
            } catch (error) {
@@ -30,11 +32,12 @@ emailFetch = (req,res)=> {
              console.log("Error occured while reading EmailList json data, check again");
              errors.write("Error occured while reading EmailList json data, check again");
            }
-
+           fs.writeFile(`./json/list.json`,JSON.stringify(emailData),error => console.log(error));
           
         if(listCount>0){
           res.json({"code":1,"message":"Email List data received"});
           status.writeStatus("Email List data received");
+          listCount =0;
         } else {
           res.json({"code":0,"message":"Email List data missing"});
         } 
