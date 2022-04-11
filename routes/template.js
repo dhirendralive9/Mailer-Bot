@@ -3,6 +3,9 @@ const axios = require('axios');
 var templateCount = 0;
 // const data = JSON.parse(fs.readFileSync(`${__dirname}/json/sender.json`));
 const data = JSON.parse(fs.readFileSync(`./json/templates.json`));
+const errors = require('./error');
+
+
 
 templateFetch = (req,res)=> {
        
@@ -27,7 +30,8 @@ templateFetch = (req,res)=> {
             });
           
            } catch (error) {
-             console.log("Error occured while reading json data, check again")
+             console.log("Error occured while reading json data, check again");
+             errors.write("Error occured while reading Sender json data, check again");
            }
 
           

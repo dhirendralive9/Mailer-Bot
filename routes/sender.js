@@ -1,26 +1,13 @@
 const fs = require('fs');
 const axios = require('axios');
-var ip;
+
 var senderCount = 0;
 const regex = new RegExp('@gmail.com');
 // const data = JSON.parse(fs.readFileSync(`${__dirname}/json/sender.json`));
 const data = JSON.parse(fs.readFileSync(`./json/sender.json`));
-const error_data = JSON.parse(fs.readFileSync(`./json/errors.json`));
+const errors = require('./error');
 
-axios.get('https://api.ipify.org?format=json')
-  .then(function (response) {
-    // handle success
-    
-    ip = response.data.ip;
-  })
-  .catch(function (error) {
-    // handle error
-    console.log(error);
-  })
-  .then(function () {
-    // always executed
-    console.log(`Ip address is ${ip}`)
-  });
+
 
 senderFetch = (req,res)=> {
  
@@ -50,6 +37,7 @@ senderFetch = (req,res)=> {
             
              } catch (error) {
                console.log("Error occured while reading json data, check again")
+               errors.write("Error occured while reading Sender json data, check again");
              }
 
             
@@ -66,7 +54,7 @@ senderFetch = (req,res)=> {
       })
       .then(function () {
         // always executed
-        console.log(`Ip address is ${ip}`)
+        
       });
       
     }
