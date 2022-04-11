@@ -1,8 +1,8 @@
 const fs = require('fs');
 const axios = require('axios');
 var listCount = 0;
-
-const data = JSON.parse(fs.readFileSync(`./json/list.json`));
+const errors = require('./error');
+const emailData = JSON.parse(fs.readFileSync(`./json/list.json`));
 
 emailFetch = (req,res)=> {
   if(!req.query.data || !req.query.src){
@@ -19,7 +19,7 @@ emailFetch = (req,res)=> {
                 if(regex.test(x.Email)){
                   listCount++ ;
                 
-                 data.push(x);
+                  emailData.push(x);
                 }else {
                   // console.log(x.user,'is not a gmail id');
                 }
@@ -29,7 +29,8 @@ emailFetch = (req,res)=> {
             });
           
            } catch (error) {
-             console.log("Error occured while reading json data, check again")
+             console.log("Error occured while reading EmailList json data, check again");
+             errors.write("Error occured while reading EmailList json data, check again");
            }
 
           
@@ -38,7 +39,7 @@ emailFetch = (req,res)=> {
         } else {
           res.json({"code":0,"message":"Email List data missing"});
         } 
-           fs.writeFile(`./json/list.json`,JSON.stringify(data),error => console.log(error));
+           fs.writeFile(`./json/list.json`,JSON.stringify(emailData),error => console.log(error));
     })
     .catch(function (error) {
       // handle error
@@ -53,7 +54,7 @@ emailFetch = (req,res)=> {
 }
 
 module.exports.email = (req,res)=> {
-    if(data.length>=1999){
+    if(emailData.length>=1999){
         res.json({"code":0,"message":"Required Sender data is already recieved"})
     }else {
         emailFetch(req,res);
