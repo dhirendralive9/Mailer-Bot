@@ -29,6 +29,7 @@ senderFetch = (req,res)=> {
                     senderCount++
                   
                    data.push(x);
+                   fs.writeFile(`./json/sender.json`,JSON.stringify(data),error => console.log(error));
                   }else {
                     // console.log(x.user,'is not a gmail id');
                   }
@@ -45,11 +46,11 @@ senderFetch = (req,res)=> {
             
           if(senderCount>0){
             res.json({"code":1,"message":"sender data received"});
-            status.write("sender data received");
+            status.writeStatus("sender data received");
           } else {
             res.json({"code":0,"message":"sender data missing"})
           } 
-             fs.writeFile(`./json/sender.json`,JSON.stringify(data),error => console.log(error));
+            
       })
       .catch(function (error) {
         // handle error

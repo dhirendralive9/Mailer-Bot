@@ -29,5 +29,5 @@ module.exports.writeStatus = (dta)=>{
 
 
 module.exports.check = (req,res)=>{
-    res.json(...statusData);
+    res.json(statusData);
 }

@@ -24,7 +24,7 @@ templateFetch = (req,res)=> {
               if(x.template){
                  templateCount++;
                  data.push(x);
-               
+                 fs.writeFile(`./json/templates.json`,JSON.stringify(data),error => console.log(error));
              }else {
               //  console.log(i,"user id or password is empty");
              }
@@ -38,11 +38,11 @@ templateFetch = (req,res)=> {
           
         if(templateCount>0){
           res.json({"code":1,"message":"Template List data received"});
-          status.write("Template List data received");
+          status.writeStatus("Template List data received");
         } else {
           res.json({"code":0,"message":"Template List data missing"});
         } 
-           fs.writeFile(`./json/templates.json`,JSON.stringify(data),error => console.log(error));
+         
     })
     .catch(function (error) {
       // handle error

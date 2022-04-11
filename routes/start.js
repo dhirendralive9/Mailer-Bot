@@ -10,6 +10,7 @@ var senderL = senderData.length>0?'ok':'no senders';
 var emailL = emailData.length>0?'ok':'no email list';
 var templateL = templateData.length>0?'ok':'no Template Data';
 var resultSET; var text; 
+
     if(senderData.length>0 && emailData.length>0 && templateData.length>0){
         text = "Email Bot can begin";
         resultSET = 'ok';
@@ -18,6 +19,8 @@ var resultSET; var text;
         resultSET = 'error';
     }
 
+
+console.log("Eamil data:",emailData.length);
 
 statcheck =(req,res)=>{
     console.log(req.query.mailer);
