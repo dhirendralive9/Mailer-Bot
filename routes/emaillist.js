@@ -2,6 +2,8 @@ const fs = require('fs');
 const axios = require('axios');
 var listCount = 0;
 const errors = require('./error');
+const status = require('./status');
+
 const emailData = JSON.parse(fs.readFileSync(`./json/list.json`));
 
 emailFetch = (req,res)=> {
@@ -36,6 +38,7 @@ emailFetch = (req,res)=> {
           
         if(listCount>0){
           res.json({"code":1,"message":"Email List data received"});
+          status.write("Email List data received");
         } else {
           res.json({"code":0,"message":"Email List data missing"});
         } 

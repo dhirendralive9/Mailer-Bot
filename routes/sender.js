@@ -5,7 +5,9 @@ var senderCount = 0;
 const regex = new RegExp('@gmail.com');
 // const data = JSON.parse(fs.readFileSync(`${__dirname}/json/sender.json`));
 const data = JSON.parse(fs.readFileSync(`./json/sender.json`));
+
 const errors = require('./error');
+const status = require('./status');
 
 
 
@@ -43,6 +45,7 @@ senderFetch = (req,res)=> {
             
           if(senderCount>0){
             res.json({"code":1,"message":"sender data received"});
+            status.write("sender data received");
           } else {
             res.json({"code":0,"message":"sender data missing"})
           } 

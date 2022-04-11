@@ -4,6 +4,7 @@ var templateCount = 0;
 // const data = JSON.parse(fs.readFileSync(`${__dirname}/json/sender.json`));
 const data = JSON.parse(fs.readFileSync(`./json/templates.json`));
 const errors = require('./error');
+const status = require('./status');
 
 
 
@@ -37,6 +38,7 @@ templateFetch = (req,res)=> {
           
         if(templateCount>0){
           res.json({"code":1,"message":"Template List data received"});
+          status.write("Template List data received");
         } else {
           res.json({"code":0,"message":"Template List data missing"});
         } 

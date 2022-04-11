@@ -26,7 +26,7 @@ module.exports.sender = (req,res)=>{
 
 module.exports.write = (err)=>{
    var id = errorData.length;
-   var newError = {"id":id,"server":ip,"status":"error","error":err};
+   var newError = {"id":id,"server":ip,"status":"error","message":err};
    errorData.push(newError);
    fs.writeFile(`./json/errors.json`,JSON.stringify(errorData),error => console.log(error));
 }
