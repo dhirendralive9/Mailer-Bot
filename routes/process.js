@@ -14,3 +14,7 @@ module.exports.queueCheck = (req,res)=>{
     res.json({"Info":"Data Acquired","Email Data":emailData.length,"Sender Data":senderData.length,"Email can be sent":(senderData.length*50)});
  }
  
+
+ module.exports.startBot = ()=>{
+     console.log("Mailer Bot is active Now");
+ }
