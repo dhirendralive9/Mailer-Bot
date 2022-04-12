@@ -184,4 +184,45 @@ module.exports.templateFetch = (req,res)=> {
       
         }
       }
+    
       
+      module.exports.statcheck =(req,res)=>{
+        var senderL = data.length>0?'ok':'no senders';
+        var emailL = emailData.length>0?'ok':'no email list';
+        var templateL = templateData.length>0?'ok':'no Template Data';
+        var resultSET; var text; 
+         
+        console.log("Eamil data:",emailData.length);
+
+
+    if(data.length>0 && emailData.length>0 && templateData.length>0){
+        text = "Email Bot can begin";
+        resultSET = 'ok';
+    } else {
+        text = "all info not available";
+        resultSET = 'error';
+    }
+
+
+console.log("Eamil data:",emailData.length);
+        console.log(req.query.mailer);
+        if(req.query.mailer == 'active'){
+    
+            console.log("activate the mailer");
+             if(resultSET== 'ok'){
+                var response = {"senders":senderL,"email-List":emailL,"Template List":templateL,"status":resultSET,"message":"Mailer Bot will start Shortly"}
+                res.json(response)
+     
+             }else {
+                var response = {"senders":senderL,"email-List":emailL,"Template List":templateL,"status":resultSET,"message":text}
+                res.json(response)
+                  
+             }
+        
+        }else {
+            var response = {"senders":senderL,"email-List":emailL,"Template List":templateL,"status":resultSET,"message":text}
+            res.json(response)
+        }
+         
+       
+    }     
