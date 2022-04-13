@@ -7,6 +7,7 @@
 /json/sender.json
 /json/status.json
 /json/templates.json
+/json/dataQueue.json
 
 /.pnp
 .pnp.js

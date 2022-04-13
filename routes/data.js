@@ -4,7 +4,7 @@ const axios = require('axios');
 var senderCount = 0;
 var templateCount = 0;
 var listCount = 0;
-
+var dataQueueCount = 0;
 
 
 const regex = new RegExp('@gmail.com');  
@@ -13,13 +13,15 @@ const regex = new RegExp('@gmail.com');
 const data = JSON.parse(fs.readFileSync(`./json/sender.json`));   //sender json file 
 const templateData = JSON.parse(fs.readFileSync(`./json/templates.json`));  //template file
 var emailData = JSON.parse(fs.readFileSync(`./json/list.json`));  //email list
-
+var dataQueue = JSON.parse(fs.readFileSync(`./json/dataQueue.json`));
 
 
 
 
 const errors = require('./error');    //central error files 
 const status = require('./status');   //central status file
+const node = require('./nodemailer') //it will start mailing
+
 
 exports.data = data;   //exporting the sender data 
 exports.templateData = templateData;
@@ -41,7 +43,7 @@ module.exports.senderFetch = (req,res)=> {
              try {
               dataLog.forEach((x) =>{
                 if(x.user && x.password){
-                  if(regex.test(x.user)){
+                  if((x.user)){
                     senderCount++
                   
                    data.push(x);
@@ -185,7 +187,7 @@ module.exports.templateFetch = (req,res)=> {
         }
       }
     
-      
+      // this will trigger from start.js
       module.exports.statcheck =(req,res)=>{
         var senderL = data.length>0?'ok':'no senders';
         var emailL = emailData.length>0?'ok':'no email list';
@@ -211,6 +213,7 @@ console.log("Eamil data:",emailData.length);
             console.log("activate the mailer");
              if(resultSET== 'ok'){
                 var response = {"senders":senderL,"email-List":emailL,"Template List":templateL,"status":resultSET,"message":"Mailer Bot will start Shortly"}
+                startMailer2();
                 res.json(response)
      
              }else {
@@ -226,3 +229,54 @@ console.log("Eamil data:",emailData.length);
          
        
     }     
+
+    //start.js functions to start mailing
+    var senderDataLenght = data.length;
+    var templateDataLength = templateData.length;
+    var emailDataLength = emailData.length;
+    var randomTemplate = Math.floor(Math.random() * templateDataLength);
+    
+
+    module.exports.mailAddressSender = ()=>{
+           
+             
+            console.log("Senders :",senderDataLenght,"Template:",templateDataLength,"Email Data Length:",emailDataLength,"Random Template:",randomTemplate);
+           
+            
+    }
+
+    var min_mail = 0;
+    var max_mail = 49;
+    var i =0;
+    var j = 0;
+    var vv = 0;
+
+     function startMailer1(data,xyz){
+      setTimeout(()=>{
+        console.log(data[xyz].sender,data[xyz].password,data[xyz].email)
+        node.main(data[xyz].sender,data[xyz].password,data[xyz].email)
+        if(data[xyz+1]){
+          startMailer1(data,xyz+1)
+        }
+      },3000)
+       
+     } 
+
+
+
+
+    function startMailer2 (){
+
+        data.forEach(x=>{
+            for(j=min_mail;j<=max_mail;j++){
+              var newQueue = {"sender":x.user,"password":x.password,"email":emailData[vv].email};
+              dataQueue.push(newQueue);
+              vv++;
+            } 
+        })
+        fs.writeFile(`./json/dataQueue.json`,JSON.stringify(dataQueue),error => console.log(error));
+        startMailer1(dataQueue,0);
+    }
+     
+
+   
