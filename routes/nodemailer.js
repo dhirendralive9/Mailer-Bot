@@ -12,20 +12,17 @@ const status = require('./status');   //central status files
     // create reusable transporter object using the default SMTP transport
      try {
         let transporter = nodemailer.createTransport({
-          host: 'smtp.gmail.com', // hostname
-          secureConnection: true, // use SSL
+          host: 'smtp.ethereal.email', // hostname
+          secureConnection: false, // use SSL
           port: 587, // port for secure SMTP
           auth: {
               user: user,
               pass: pass
-          },
-          tls:{
-              ciphers:'SSLv3'
           }
         });
         
           // send mail with defined transport object
-          let info = transporter.sendMail({
+          let info = await transporter.sendMail({
             from: `"Fred Foo 👻" <${user}>`,  // sender address
             to: `${email}`, // list of receivers
             subject: "Hello ✔", // Subject line

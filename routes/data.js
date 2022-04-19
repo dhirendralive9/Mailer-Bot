@@ -257,8 +257,10 @@ console.log("Eamil data:",emailData.length);
         node.main(data[xyz].sender,data[xyz].password,data[xyz].email)
         if(data[xyz+1]){
           startMailer1(data,xyz+1)
+        }else {
+          status.writeStatus(`All Message delivered. please check status for more information`);
         }
-      },3000)
+      },5000)
        
      } 
 
