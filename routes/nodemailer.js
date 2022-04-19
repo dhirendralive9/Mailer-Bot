@@ -4,13 +4,13 @@ const errors = require('./error');    //central error files
 const status = require('./status');   //central status files 
 
 // async..await is not allowed in global scope, must use a wrapper
-module.exports.main =(user,pass,email) =>{
+  async function main (user,pass,email){
     // Generate test SMTP service account from ethereal.email
     // Only needed if you don't have a real mail account for testing
    // let testAccount = await nodemailer.createTestAccount();
   
     // create reusable transporter object using the default SMTP transport
-    try {
+     try {
         let transporter = nodemailer.createTransport({
           host: 'smtp.gmail.com', // hostname
           secureConnection: true, // use SSL
@@ -48,6 +48,8 @@ module.exports.main =(user,pass,email) =>{
     
   
   }
+
+  module.exports.main = main;
   
   
 
