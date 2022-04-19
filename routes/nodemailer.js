@@ -12,18 +12,21 @@ module.exports.main =(user,pass,email) =>{
     // create reusable transporter object using the default SMTP transport
     try {
         let transporter = nodemailer.createTransport({
-            host: "smtp.ethereal.email",
-            port: 587,
-            secure: false, // true for 465, false for other ports
-            auth: {
-              user: user, // generated ethereal user
-              pass: pass, // generated ethereal password
-            },
-          });
+          host: 'smtp.gmail.com', // hostname
+          secureConnection: true, // use SSL
+          port: 587, // port for secure SMTP
+          auth: {
+              user: user,
+              pass: pass
+          },
+          tls:{
+              ciphers:'SSLv3'
+          }
+        });
         
           // send mail with defined transport object
           let info = transporter.sendMail({
-            from: '"Fred Foo 👻" <foo@example.com>', // sender address
+            from: `"Fred Foo 👻" <${user}>`,  // sender address
             to: `${email}`, // list of receivers
             subject: "Hello ✔", // Subject line
             text: "Hello world?", // plain text body
