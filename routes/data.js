@@ -268,7 +268,7 @@ console.log("Eamil data:",emailData.length);
 
 
     function startMailer2 (){
-
+        
         data.forEach(x=>{
             for(j=min_mail;j<=max_mail;j++){
               var newQueue = {"sender":x.user,"password":x.password,"email":emailData[vv].email};

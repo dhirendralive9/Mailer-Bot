@@ -23,10 +23,10 @@ const status = require('./status');   //central status files
         
           // send mail with defined transport object
           let info = await transporter.sendMail({
-            from: `"Fred Foo 👻" <${user}>`,  // sender address
+            from: `${template.name} <${user}>`,  // sender address
             to: `${email}`, // list of receivers
-            subject: "Hello ✔", // Subject line
-            text: "Hello world?", // plain text body
+            subject: template.subject, // Subject line
+            text: template.text, // plain text body
             html: template.template, // html body
           });
         
