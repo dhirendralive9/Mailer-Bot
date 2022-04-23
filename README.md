@@ -1,33 +1,34 @@
 # Mailer-Bot
 
-/install : It will create all the required JSON files before starting the Process. 
+**/install** : It will create all the required JSON files before starting the Process. 
 
-/sender : It will accept a JSON file which will have all the sender user ids and password for sending mails. 
+**/sender** : It will accept a JSON file which will have all the sender user ids and password for sending mails. 
 
-/email : It will accept a JSON file which will have all the email list for mail sending. 
+**/email** : It will accept a JSON file which will have all the email list for mail sending. 
 
-/template : This will recieve all the templates which will send 
+**/template** : This will recieve all the templates which will send 
 
-/status : Here we can check all the logs 
+**/status** : Here we can check all the logs 
 
-/errors : Here all the errors are logged for us to check if required. 
+**/errors** : Here all the errors are logged for us to check if required. 
 
-/start : This will help us to check if all the requirements are fullfiled to start the mailer. 
+**/start** : This will help us to check if all the requirements are fullfiled to start the mailer. 
 
-/process : This route will help us to setup a destination for sending all the error reports as well as all the other logs. 
+**/process** : This route will help us to setup a destination for sending all the error reports as well as all the other logs. 
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------
-/install : This will be the first route which need to accessed, to start the mailer-bot.  No qery params will be required. 
+**/install** : This will be the first route which need to accessed, to start the mailer-bot.  No qery params will be required. 
 
 =============================================================================================================================================================
-/process : The process route will accept, two query params . one is status and another will be link. 
+**/process** : The process route will accept, two query params . one is status and another will be link. 
 The status will either have param active or inactive, if it will be active, it must supply a link to send logs or if the status 
 will be inactive then link is not required. The link provided must include http or https and port if required. It must have logger route to accept 
 the log information. It will send params like ip, which will have ip address of the server, id which will be id of the error and status which will be error or log as required also message ,which will have description of the error or log. 
 
-/process can be sent status "inactive" if no log information is required, which will not check for link query.
+**/process** can be sent status "inactive" if no log information is required, which will not check for link query.
 
-/process?status=active&link=https://128.0.0.01:3000/ 
+**/process?status=active&link=https://128.0.0.01:3000/** 
+
 ==============================================================================================================================================================
 
 /sender : This route will accept a two query params, data which should have sender as param while src should have a json file as param. It copy those senders for 
