@@ -26,4 +26,4 @@ var pData =  JSON.parse(fs.readFileSync(`./json/process.json`));
     
  }
 
- module.exports.pData;
+ module.exports.pData = pData;
