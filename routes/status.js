@@ -2,6 +2,10 @@ const fs = require('fs');
 const axios = require('axios');
 var ip;
 
+const statusData = JSON.parse(fs.readFileSync(`./json/status.json`));
+
+const process = require('./process');
+
 axios.get('https://api.ipify.org?format=json')
   .then(function (response) {
     // handle success
@@ -18,7 +22,7 @@ axios.get('https://api.ipify.org?format=json')
   });
 
 
-const statusData = JSON.parse(fs.readFileSync(`./json/status.json`));
+
 
 module.exports.writeStatus = (dta)=>{
    var id = statusData.length;

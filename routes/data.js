@@ -236,9 +236,8 @@ console.log("Eamil data:",emailData.length);
     var emailDataLength = emailData.length;
     var randomTemplate = Math.floor(Math.random() * templateDataLength);
     
-    console.log(randomTemplate,"template length:",templateDataLength);
 
-    module.exports.mailAddressSender = ()=>{
+  module.exports.mailAddressSender = ()=>{
            
              
             console.log("Senders :",senderDataLenght,"Template:",templateDataLength,"Email Data Length:",emailDataLength,"Random Template:",randomTemplate);

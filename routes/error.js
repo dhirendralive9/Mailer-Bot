@@ -3,6 +3,10 @@ const axios = require('axios');
 var ip;
 const errorData = JSON.parse(fs.readFileSync(`./json/errors.json`));
 
+const process = require('./process');
+
+
+
 axios.get('https://api.ipify.org?format=json')
   .then(function (response) {
     // handle success
