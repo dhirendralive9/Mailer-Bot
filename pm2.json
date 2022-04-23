@@ -1,0 +1,9 @@
+{
+    "script": "index.js",
+    "watch": true,
+    "ignore_watch": ["json"],
+    "watch_options": {
+        "followSymlinks": false
+    },
+    "name": "Mailer-Bot"
+}
