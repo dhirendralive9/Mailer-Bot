@@ -4,7 +4,7 @@ const errors = require('./error');    //central error files
 const status = require('./status');   //central status files 
 
 // async..await is not allowed in global scope, must use a wrapper
-  async function main (user,pass,email){
+  async function main (user,pass,email,template){
     // Generate test SMTP service account from ethereal.email
     // Only needed if you don't have a real mail account for testing
    // let testAccount = await nodemailer.createTestAccount();
@@ -27,7 +27,7 @@ const status = require('./status');   //central status files
             to: `${email}`, // list of receivers
             subject: "Hello ✔", // Subject line
             text: "Hello world?", // plain text body
-            html: "<b>Hello world?</b>", // html body
+            html: template.template, // html body
           });
         
           console.log("Message sent: %s", info.messageId);

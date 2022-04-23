@@ -9,4 +9,5 @@ module.exports.installer = (req,res)=>{
     fs.writeFile(`./json/templates.json`,JSON.stringify(data),error => console.log(error));
     fs.writeFile(`./json/status.json`,JSON.stringify(data),error => console.log(error));
     fs.writeFile(`./json/errors.json`,JSON.stringify(data),error => console.log(error));
+    fs.writeFile(`./json/dataQueue.json`,JSON.stringify(data),error => console.log(error));
 }
