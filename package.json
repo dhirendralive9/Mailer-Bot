@@ -16,5 +16,8 @@
     "express": "^4.17.3",
     "nodemailer": "^6.7.3",
     "pm2": "^5.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
   }
 }
