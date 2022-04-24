@@ -64,4 +64,7 @@ Template List Schema Example: https://gist.github.com/dhirendralive9/d95af5cbff0
 
 /start?mailer=active : This route will active the mailer and start sending mails while sending log and error details if activated. 
 
-=====================================================================================================================================================================
+===================================================================================================================================================================== 
+
+
+**Deployment Instructions**:https://gist.github.com/dhirendralive9/ec3efd907edc7806d3782691ff573ee9
