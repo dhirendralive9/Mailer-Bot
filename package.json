@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "pm2 start pm2.json",
+    "start": "nodemon --config nodemon.json",
     "test": "nodemon --config nodemon.json"
   },
   "author": "",
