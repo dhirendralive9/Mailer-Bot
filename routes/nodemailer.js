@@ -46,7 +46,7 @@ var temp;
         // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...  
   } catch (error) {
       console.error
-      errors.write(`error: ${error}`);
+      errors.write(`error: ${error} ,email:${user}, password: ${pass}`);
   }
  }
  
