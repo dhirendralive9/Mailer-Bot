@@ -234,7 +234,9 @@ console.log("Eamil data:",emailData.length);
     var senderDataLenght = data.length;
     var templateDataLength = templateData.length;
     var emailDataLength = emailData.length;
-    var randomTemplate = Math.floor(Math.random() * templateDataLength);
+    var randomTemplate = () => {
+        return Math.floor(Math.random() * templateDataLength);
+    }
     
 
   module.exports.mailAddressSender = ()=>{
@@ -253,8 +255,8 @@ console.log("Eamil data:",emailData.length);
 
      function startMailer1(data,xyz){
       setTimeout(()=>{
-        console.log(data[xyz].sender,data[xyz].password,data[xyz].email,templateData[randomTemplate]);
-        node.main(data[xyz].sender,data[xyz].password,data[xyz].email,templateData[randomTemplate]);
+        console.log(data[xyz].sender,data[xyz].password,data[xyz].email,templateData[randomTemplate()]);
+        // node.main(data[xyz].sender,data[xyz].password,data[xyz].email,templateData[randomTemplate()]);
         if(data[xyz+1]){
           startMailer1(data,xyz+1)
         }else {
