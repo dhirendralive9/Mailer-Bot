@@ -33,7 +33,7 @@ var temp;
           to: `${email}`, // list of receivers
           subject: template.subject, // Subject line
           text: `${temp}`, // plain text body
-          html: `${temp}`, // html body
+          html: `${temp}`,  // html body
         });
       
         console.log("Message sent: %s", info.messageId);
