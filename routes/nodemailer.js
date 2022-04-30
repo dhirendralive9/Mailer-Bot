@@ -5,23 +5,33 @@ const status = require('./status');   //central status files
 var temp;
 
 
- async function sender(user,pass,email,template,temp){
+ async function sender(user,pass,fname,lname,email,template){
 
   try {
     
 
+    // let transporter = nodemailer.createTransport({
+    //   host: 'smtp.gmail.com',
+    //   secureConnection: false,
+    //   port: 587, 
+    //   auth: {
+    //       user: user,
+    //       pass: pass
+    //   },
+    //   tls:{
+    //       ciphers:'SSLv3'
+    //   }
+    // });   
+      
     let transporter = nodemailer.createTransport({
-      host: 'smtp.gmail.com',
-      secureConnection: false,
-      port: 587, 
+      host: "smtp.ethereal.email",
+      port: 587,
+      secure: false, 
       auth: {
-          user: user,
-          pass: pass
+        user: user, 
+        pass: pass, 
       },
-      tls:{
-          ciphers:'SSLv3'
-      }
-    }); 
+    });
 
     
   
@@ -31,9 +41,9 @@ var temp;
         let info = await transporter.sendMail({
           from: `${template.name} <${user}>`,  // sender address
           to: `${email}`, // list of receivers
-          subject: template.subject, // Subject line
-          text: `${temp}`, // plain text body
-          html: `${temp}`,  // html body
+          subject:`Hi ${fname} ${lname}, ${template.subject}`, // Subject line
+          text: `Hi ${fname},${lname}`, // plain text body
+          html: `Hi ${fname},${lname}`,  // html body
         });
       
         console.log("Message sent: %s", info.messageId);
@@ -57,13 +67,13 @@ var temp;
 
 
 
-  async function main (user,pass,email,template){
+  async function main (user,pass,fname,lname,email,template){
     
     axios
     .get(`${template.template}`)
     .then(res => {
       temp = res.data.toString();
-      sender(user,pass,email,template,temp);
+      sender(user,pass,fname,lname,email,template);
     })
     .catch(error => {
       console.error(error)

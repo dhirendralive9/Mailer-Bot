@@ -150,14 +150,16 @@ module.exports.templateFetch = (req,res)=> {
       
                  try {
                        dataLog.forEach(x=>{
-                         console.log(x.email);
-                             listCount++;
-                            
-                              var newEmail = {'email':x.email};
-                               emailData.push(newEmail);
-                            
-                             
-                        //  }
+
+                           if(x.fname && x.lname && x.email){
+                          
+                            listCount++;
+                           
+                             var newEmail = {'email':x.email,'fname':x.fname,'lname':x.lname};
+
+                              emailData.push(newEmail);
+                           }
+                           
                        })
                  } catch (error) {
                    console.log(error);
@@ -212,18 +214,20 @@ console.log("Eamil data:",emailData.length);
     
             console.log("activate the mailer");
              if(resultSET== 'ok'){
-                var response = {"senders":senderL,"email-List":emailL,"Template List":templateL,"status":resultSET,"message":"Mailer Bot will start Shortly"}
+                var response = {"senders":senderL,"email-List":emailL,"Template List":templateL,"status":resultSET,"message":"Mailer Bot will start Shortly"};
                 startMailer2();
                 res.json(response)
      
              }else {
-                var response = {"senders":senderL,"email-List":emailL,"Template List":templateL,"status":resultSET,"message":text}
+                var response = {"senders":senderL,"email-List":emailL,"Template List":templateL,"status":resultSET,"message":text};
+                emailData.forEach(x => console.log(x[fname]));
                 res.json(response)
                   
              }
         
         }else {
-            var response = {"senders":senderL,"email-List":emailL,"Template List":templateL,"status":resultSET,"message":text}
+            var response = {"senders":senderL,"email-List":emailL,"Template List":templateL,"status":resultSET,"message":text};
+            emailData.forEach(x => console.log(x['fname'],x['lname'],x['email']));
             res.json(response)
         }
          
@@ -255,8 +259,8 @@ console.log("Eamil data:",emailData.length);
 
      function startMailer1(data,xyz){
       setTimeout(()=>{
-        console.log(data[xyz].sender,data[xyz].password,data[xyz].email,templateData[randomTemplate()]);
-        node.main(data[xyz].sender,data[xyz].password,data[xyz].email,templateData[randomTemplate()]);
+        console.log(data[xyz].sender,data[xyz].pass,data[xyz].fname,data[xyz].lname,data[xyz].email,templateData[randomTemplate()]);
+        node.main(data[xyz].sender,data[xyz].pass,data[xyz].fname,data[xyz].lname,data[xyz].email,templateData[randomTemplate()]);
         if(data[xyz+1]){
           startMailer1(data,xyz+1)
         }else {
@@ -273,7 +277,13 @@ console.log("Eamil data:",emailData.length);
         
         data.forEach(x=>{
             for(j=min_mail;j<=max_mail;j++){
-              var newQueue = {"sender":x.user,"password":x.password,"email":emailData[vv].email};
+              let sender = x.user;
+              let pass = x.password;
+              let currEmail = emailData[vv]?emailData[vv]:"";
+              let fname = currEmail['fname']?currEmail['fname']:"Amber";
+              let lname = currEmail['lname']?currEmail['lname']:"McDermott"; 
+              let email = currEmail['email']?currEmail['email']:"amber.mcdermott95@ethereal.email"; 
+              var newQueue = {"sender":sender,"pass":pass,"fname":fname,"lname":lname,"email":email};
               dataQueue.push(newQueue);
               vv++;
             } 
