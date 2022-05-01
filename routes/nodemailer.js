@@ -5,7 +5,7 @@ const status = require('./status');   //central status files
 var temp;
 
 
- async function sender(user,pass,fname,lname,email,template){
+ async function sender(user,pass,fname,lname,email,template,temp){
 
   try {
     
@@ -42,8 +42,8 @@ var temp;
           from: `${template.name} <${user}>`,  // sender address
           to: `${email}`, // list of receivers
           subject:`Hi ${fname} ${lname}, ${template.subject}`, // Subject line
-          text: `Hi ${fname},${lname}`, // plain text body
-          html: `Hi ${fname},${lname}`,  // html body
+          text: `${temp}`, // plain text body
+          html: `${temp}`,  // html body
         });
       
         console.log("Message sent: %s", info.messageId);
@@ -72,8 +72,9 @@ var temp;
     axios
     .get(`${template.template}`)
     .then(res => {
-      temp = res.data.toString();
-      sender(user,pass,fname,lname,email,template);
+      let name = `${fname} ${lname}`;
+      temp = res.data.toString().replace("#name",name);
+      sender(user,pass,fname,lname,email,template,temp);
     })
     .catch(error => {
       console.error(error)
