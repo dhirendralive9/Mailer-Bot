@@ -10,29 +10,20 @@ var temp;
   try {
     
 
-    // let transporter = nodemailer.createTransport({
-    //   host: 'smtp.gmail.com',
-    //   secureConnection: false,
-    //   port: 587, 
-    //   auth: {
-    //       user: user,
-    //       pass: pass
-    //   },
-    //   tls:{
-    //       ciphers:'SSLv3'
-    //   }
-    // });   
-      
     let transporter = nodemailer.createTransport({
-      host: "smtp.ethereal.email",
-      port: 587,
-      secure: false, 
+      host: 'smtp.gmail.com',
+      secureConnection: false,
+      port: 587, 
       auth: {
-        user: user, 
-        pass: pass, 
+          user: user,
+          pass: pass
       },
-    });
-
+      tls:{
+          ciphers:'SSLv3'
+      }
+    });   
+      
+   
     
   
 

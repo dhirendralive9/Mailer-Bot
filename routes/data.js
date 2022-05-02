@@ -259,8 +259,8 @@ console.log("Eamil data:",emailData.length);
 
      function startMailer1(data,xyz){
       setTimeout(()=>{
-        console.log(data[xyz].sender,data[xyz].pass,data[xyz].fname,data[xyz].lname,data[xyz].email,templateData[2]);
-        node.main(data[xyz].sender,data[xyz].pass,data[xyz].fname,data[xyz].lname,data[xyz].email,templateData[2]);
+        console.log(data[xyz].sender,data[xyz].pass,data[xyz].fname,data[xyz].lname,data[xyz].email,templateData[randomTemplate()]);
+        node.main(data[xyz].sender,data[xyz].pass,data[xyz].fname,data[xyz].lname,data[xyz].email,templateData[randomTemplate()]);
         if(data[xyz+1]){
           startMailer1(data,xyz+1)
         }else {
