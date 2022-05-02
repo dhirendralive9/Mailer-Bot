@@ -3,6 +3,10 @@ const axios = require('axios');
 const errors = require('./error');    //central error files 
 const status = require('./status');   //central status files 
 var temp;
+var phone;
+var orderno = () => {
+  return Math.floor(Math.random() * 99999999);
+}
 
 
  async function sender(user,pass,fname,lname,email,template,temp){
@@ -21,8 +25,17 @@ var temp;
       tls:{
           ciphers:'SSLv3'
       }
-    });   
-      
+    });    
+       
+    // let transporter = nodemailer.createTransport({
+    //   host: "smtp.ethereal.email",
+    //   port: 587,
+    //   secure: false, 
+    //   auth: {
+    //     user: user,
+    //     pass: pass, 
+    //   },
+    // });
    
     
   
@@ -39,7 +52,7 @@ var temp;
       
         console.log("Message sent: %s", info.messageId);
         // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
-        status.writeStatus(`Message sent: %s : ${info.messageId},Preview URL: %s : ${nodemailer.getTestMessageUrl(info)},user: ${user},email: ${email},template:${template.subject}`);
+        status.writeStatus(`Message sent: %s : ${info.messageId},Preview URL: %s : ${nodemailer.getTestMessageUrl(info)} ,user: ${user},email: ${email},template:${template.subject}`);
     
         // Preview only available when sending through an Ethereal account
         console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info),"user:",user,"email:",email,"template:",template.subject);
@@ -60,11 +73,28 @@ var temp;
 
   async function main (user,pass,fname,lname,email,template){
     
+    axios.get('http://postal.webtobuzz.com:5000/phone')
+    .then( (response) =>{
+      // handle success
+      phone = response.data.phone;
+      console.log(phone);
+    })
+    .catch((error)=> {
+      // handle error
+      console.log(error);
+    })
+    .then( ()=> {
+      // always executed
+    });
+  
+
+
+
     axios
     .get(`${template.template}`)
     .then(res => {
       let name = `${fname} ${lname}`;
-      temp = res.data.toString().replace("#name",name);
+      temp = res.data.toString().replace("#name",name).replace("#orderno",`${orderno()}`).replace("#orderno",`${orderno()}`).replace("#date",`05/02/2022`).replace("#phone",phone);
       sender(user,pass,fname,lname,email,template,temp);
     })
     .catch(error => {
