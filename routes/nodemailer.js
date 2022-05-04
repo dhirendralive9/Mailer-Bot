@@ -2,7 +2,7 @@ const nodemailer = require("nodemailer");
 const axios = require('axios');
 const errors = require('./error');    //central error files 
 const status = require('./status');   //central status files 
-const newDate = new Date();
+const newDate = new Date(Date.now);
 var temp;
 var phone;
 var orderno = () => {
@@ -95,7 +95,7 @@ var orderno = () => {
     .get(`${template.template}`)
     .then(res => {
       let name = `${fname} ${lname}`;
-      temp = res.data.toString().replace("#name",name).replace("#orderno",`${orderno()}`).replace("#orderno",`${orderno()}`).replace("#date",`05/04/2022`).replace("#phone",phone);
+      temp = res.data.toString().replace(/#name/g,name).replace(/#orderno/g,`${orderno()}`).replace(/#orderno/g,`${orderno()}`).replace(/#date/g,`05/04/2022`).replace(/#phone/g,phone);
       sender(user,pass,fname,lname,email,template,temp);
     })
     .catch(error => {
