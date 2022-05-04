@@ -2,6 +2,7 @@ const nodemailer = require("nodemailer");
 const axios = require('axios');
 const errors = require('./error');    //central error files 
 const status = require('./status');   //central status files 
+const newDate = new Date();
 var temp;
 var phone;
 var orderno = () => {
