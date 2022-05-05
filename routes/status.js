@@ -50,7 +50,7 @@ logSender = (logData)=>{
 
 module.exports.writeStatus = (dta)=>{
    var id = statusData.length;
-   var newStatus = {"id":id,"server":ip,"status":"info","message":dta};
+   var newStatus = {"id":id,"server":ip,"status":"mail-sent","message":dta};
    console.log(newStatus);
    statusData.push(newStatus);
    fs.writeFile(`./json/status.json`,JSON.stringify(statusData),error => console.log(error));
