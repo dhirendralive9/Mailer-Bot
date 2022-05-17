@@ -56,11 +56,11 @@ var orderno = () => {
         status.writeStatus(`Message sent: %s : ${info.messageId},Preview URL: %s : ${nodemailer.getTestMessageUrl(info)} ,user: ${user},email: ${email},template:${template.subject}`);
     
         // Preview only available when sending through an Ethereal account
-        console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info),"user:",user,"email:",email,"template:",template.subject);
+        // console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info),"user:",user,"email:",email,"template:",template.subject);
     
         // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...  
   } catch (error) {
-      console.error
+      // console.error
       errors.write(`error: ${error} ,email:${user}, password: ${pass}`);
   }
  }
