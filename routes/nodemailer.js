@@ -15,28 +15,28 @@ var orderno = () => {
   try {
     
 
-    let transporter = nodemailer.createTransport({
-      host: 'smtp.gmail.com',
-      secureConnection: false,
-      port: 587, 
-      auth: {
-          user: user,
-          pass: pass
-      },
-      tls:{
-          ciphers:'SSLv3'
-      }
-    });    
-       
     // let transporter = nodemailer.createTransport({
-    //   host: "smtp.ethereal.email",
-    //   port: 587,
-    //   secure: false, 
+    //   host: 'smtp.gmail.com',
+    //   secureConnection: false,
+    //   port: 587, 
     //   auth: {
-    //     user: user,
-    //     pass: pass, 
+    //       user: user,
+    //       pass: pass
     //   },
-    // });
+    //   tls:{
+    //       ciphers:'SSLv3'
+    //   }
+    // });    
+       
+    let transporter = nodemailer.createTransport({
+      host: "smtp.ethereal.email",
+      port: 587,
+      secure: false, 
+      auth: {
+        user: user,
+        pass: pass, 
+      },
+    });
    
     
   
@@ -51,7 +51,7 @@ var orderno = () => {
           html: `${temp}`,  // html body
         });
       
-        console.log("Message sent: %s", info.messageId);
+        // console.log("Message sent: %s", info.messageId);
         // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
         status.writeStatus(`Message sent: %s : ${info.messageId},Preview URL: %s : ${nodemailer.getTestMessageUrl(info)} ,user: ${user},email: ${email},template:${template.subject}`);
     

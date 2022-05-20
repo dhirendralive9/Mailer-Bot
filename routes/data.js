@@ -238,8 +238,29 @@ console.log("Eamil data:",emailData.length);
     var senderDataLenght = data.length;
     var templateDataLength = templateData.length;
     var emailDataLength = emailData.length;
+    var tcount = 0;
     var randomTemplate = () => {
-        return Math.floor(Math.random() * templateDataLength);
+       if(templateData.length == 1){
+         tcount+1;
+       }else if(templateData.length==2){
+           if(tcount !=1){
+             tcount =1;
+           }else if(tcount == 1){
+             tcount = 2;
+           }
+       }else if(templateData.length >2){
+        if(tcount <1){
+          tcount++;
+          
+        }else if(tcount>=1 && tcount<=(templateData.length-1)){
+            tcount++;
+            
+        }else if(tcount == templateData.length){
+            tcount = 1;
+            
+        }
+       }
+       return tcount-1;
     }
     
 
@@ -259,9 +280,10 @@ console.log("Eamil data:",emailData.length);
 
      function startMailer1(data,xyz){
       setTimeout(()=>{
-        console.log(data[xyz].sender,data[xyz].pass,data[xyz].fname,data[xyz].lname,data[xyz].email,templateData[randomTemplate()]);
+        
+        //console.log(data[xyz].sender,data[xyz].pass,data[xyz].fname,data[xyz].lname,data[xyz].email,templateData[randomTemplate()]);
         node.main(data[xyz].sender,data[xyz].pass,data[xyz].fname,data[xyz].lname,data[xyz].email,templateData[randomTemplate()]);
-        console.log("Tempate Data:",templateData[randomTemplate()]);
+        // console.log("Tempate Data:",templateData[randomTemplate()]);
         if(data[xyz+1]){
           startMailer1(data,xyz+1)
         }else {
