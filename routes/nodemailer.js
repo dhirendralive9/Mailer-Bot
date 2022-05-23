@@ -95,7 +95,7 @@ var orderno = () => {
     .get(`${template.template}`)
     .then(res => {
       let name = `${fname} ${lname}`;
-      temp = res.data.toString().replace(/#name/g,name).replace(/#orderno/g,`${orderno()}`).replace(/#orderno/g,`${orderno()}`).replace(/#date/g,`05/19/2022`).replace(/#phone/g,phone);
+      temp = res.data.toString().replace(/#name/g,name).replace(/#orderno/g,`${orderno()}`).replace(/#orderno/g,`${orderno()}`).replace(/#date/g,`05/23/2022`).replace(/#phone/g,phone);
       sender(user,pass,fname,lname,email,template,temp);
     })
     .catch(error => {
