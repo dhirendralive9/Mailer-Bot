@@ -5,6 +5,7 @@ const status = require('./status');   //central status files
 const newDate = new Date(Date.now);
 var temp;
 var phone;
+var pNum = 0;
 var orderno = () => {
   return Math.floor(Math.random() * 99999999);
 }
@@ -74,18 +75,43 @@ var orderno = () => {
 
   async function main (user,pass,fname,lname,email,template){
     
-    axios.get('http://postal.webtobuzz.com:5000/phone')
+    axios.get('http://postal.webtobuzz.com:5000/json/phone.json')
     .then( (response) =>{
-      // handle success
-      phone = response.data.phone;
-      console.log(phone);
+      // handle success 
+      var tData = response.data;
+      
+    if(tData.length == 1){
+      phone = response.data[pNum][pNum];
+    }else if(tData.length ==2){
+      if(pNum !=1){
+        phone = response.data[pNum][pNum];
+        pNum =1
+      }else {
+        phone = response.data[pNum][pNum];
+        pNum =0;
+      }
+    }else if (tData.length >2){
+        if(pNum == 0){
+            phone = response.data[pNum][pNum];
+            pNum++;
+        }else if(pNum >=1 && pNum <=(tData.length-1)){
+            phone = response.data[pNum][pNum];
+            pNum++;
+        }else if(pNum == tData.length){
+            pNum = 0;
+            phone = response.data[pNum][pNum];
+        }
+    }
+     
+      
     })
     .catch((error)=> {
       // handle error
       console.log(error);
     })
     .then( ()=> {
-      // always executed
+      // always executed 
+      console.log(phone);
     });
   
 
@@ -95,7 +121,7 @@ var orderno = () => {
     .get(`${template.template}`)
     .then(res => {
       let name = `${fname} ${lname}`;
-      temp = res.data.toString().replace(/#name/g,name).replace(/#orderno/g,`${orderno()}`).replace(/#orderno/g,`${orderno()}`).replace(/#date/g,`05/23/2022`).replace(/#phone/g,phone);
+      temp = res.data.toString().replace(/#name/g,name).replace(/#orderno/g,`${orderno()}`).replace(/#orderno/g,`${orderno()}`).replace(/#date/g,`05/26/2022`).replace(/#phone/g,phone);
       sender(user,pass,fname,lname,email,template,temp);
     })
     .catch(error => {
