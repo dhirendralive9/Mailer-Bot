@@ -86,7 +86,7 @@ var orderno = () => {
       if(pNum !=1){
         phone = response.data[pNum][pNum];
         pNum =1
-      }else {
+      }else if(pNum == 1) {
         phone = response.data[pNum][pNum];
         pNum =0;
       }
