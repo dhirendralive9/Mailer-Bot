@@ -14,20 +14,31 @@ var orderno = () => {
  async function sender(user,pass,fname,lname,email,template,temp){
 
   try {
-    
+
 
     let transporter = nodemailer.createTransport({
-      host: 'smtp.gmail.com',
-      secureConnection: false,
-      port: 587, 
+      host: "smtp.mail.yahoo.com",
+      port: 587,
+      secure: false, // true for 465, false for other ports
       auth: {
-          user: user,
-          pass: pass
+        user: user, // generated ethereal user
+        pass: pass, // generated ethereal password
       },
-      tls:{
-          ciphers:'SSLv3'
-      }
-    });    
+    });
+    
+
+    // let transporter = nodemailer.createTransport({
+    //   host: 'smtp.gmail.com',
+    //   secureConnection: false,
+    //   port: 587, 
+    //   auth: {
+    //       user: user,
+    //       pass: pass
+    //   },
+    //   tls:{
+    //       ciphers:'SSLv3'
+    //   }
+    // });    
        
     // let transporter = nodemailer.createTransport({
     //   host: "smtp.ethereal.email",
